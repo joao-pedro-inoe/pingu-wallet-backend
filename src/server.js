@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./config/swagger.js");
 require("dotenv").config();
 const db = require("./config/db"); // Testa a conexão com o banco
 
@@ -10,8 +12,9 @@ const transacaoRoutes = require("./routes/transacaoRoutes");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Registrando as rotas no servidor
 app.use("/usuarios", usuarioRoutes);
@@ -25,5 +28,10 @@ app.get("/ping", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`\n🚀 =================================================`);
+  console.log(`🚀 Servidor Pingu Wallet rodando com sucesso!`);
+  console.log(
+    `🚀 Acesse a Documentação Swagger em: http://localhost:${PORT}/api-docs`,
+  );
+  console.log(`🚀 =================================================\n`);
 });
