@@ -8,6 +8,7 @@ const db = require("./config/db"); // Testa a conexão com o banco
 // Importando as Rotas
 const usuarioRoutes = require("./routes/usuarioRoutes");
 const transacaoRoutes = require("./routes/transacaoRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Registrando as rotas no servidor
 app.use("/usuarios", usuarioRoutes);
 app.use("/transacoes", transacaoRoutes);
+app.use("/categorias", categoriaRoutes);
 
 // Rota de Teste para garantir que a API está viva
 app.get("/ping", (req, res) => {
