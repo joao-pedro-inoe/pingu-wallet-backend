@@ -39,9 +39,21 @@ pool.query("SELECT NOW()", async (err, res) => {
                     categoria VARCHAR(50) NOT NULL,
                     data_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+                
+                CREATE TABLE IF NOT EXISTS metas (
+                    id SERIAL PRIMARY KEY,
+                    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+                    titulo VARCHAR(100) NOT NULL,
+                    alvo DECIMAL(10,2) NOT NULL,
+                    atual DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+                    icone VARCHAR(50) NOT NULL DEFAULT 'savings',
+                    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
             `;
       await pool.query(initQuery);
-      console.log("📦 Tabela de USUÁRIOS e TRANSAÇÕES prontas para uso!");
+      console.log(
+        "📦 Tabela de USUÁRIOS, TRANSAÇÕES e Metas prontas para uso!",
+      );
     } catch (tableErr) {
       console.error("❌ Erro ao criar as tabelas:", tableErr.stack);
     }

@@ -9,6 +9,7 @@ const db = require("./config/db"); // Testa a conexão com o banco
 const usuarioRoutes = require("./routes/usuarioRoutes");
 const transacaoRoutes = require("./routes/transacaoRoutes");
 const categoriaRoutes = require("./routes/categoriaRoutes");
+const metaRoutes = require("./routes/metaRoutes");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/usuarios", usuarioRoutes);
 app.use("/transacoes", transacaoRoutes);
 app.use("/categorias", categoriaRoutes);
+app.use("/metas", metaRoutes);
 
 // Rota de Teste para garantir que a API está viva
 app.get("/ping", (req, res) => {

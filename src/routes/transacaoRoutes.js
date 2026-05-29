@@ -120,4 +120,10 @@ router.get(
   transacaoController.relatorioMensal,
 );
 
+// Atualizar uma transação existente
+router.put("/:id", transacaoController.editarTransacao);
+
+// Deletar uma transação existente
+router.delete("/:id", transacaoController.deletarTransacao);
+
 module.exports = router;

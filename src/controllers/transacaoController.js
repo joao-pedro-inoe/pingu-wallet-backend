@@ -103,3 +103,44 @@ exports.relatorioMensal = async (req, res) => {
     res.status(500).json({ error: "Erro ao gerar relatório" });
   }
 };
+
+exports.editarTransacao = async (req, res) => {
+  const { id } = req.params;
+  const { descricao, valor, tipo, categoria, data_transacao } = req.body;
+
+  if (!descricao || !valor || !tipo || !categoria) {
+    return res.status(400).json({ error: "Campos obrigatórios ausentes." });
+  }
+
+  try {
+    const result = await db.query(
+      "UPDATE transacoes SET descricao = $1, valor = $2, tipo = $3, categoria = $4, data_transacao = $5 WHERE id = $6 RETURNING *",
+      [descricao, valor, tipo, categoria, data_transacao || new Date(), id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Transação não encontrada." });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao editar transação." });
+  }
+};
+
+exports.deletarTransacao = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await db.query(
+      "DELETE FROM transacoes WHERE id = $1 RETURNING id",
+      [id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Transação não encontrada." });
+    }
+    res.json({ message: "Transação deletada com sucesso" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao deletar transação." });
+  }
+};
