@@ -76,3 +76,77 @@ exports.listarUsuarios = async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuários' });
     }
 };
+
+// 4. BUSCAR USUÁRIO POR ID
+exports.getUsuario = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await db.query(
+            'SELECT id, nome, idade, cpf, cep, email, criado_em FROM usuarios WHERE id = $1',
+            [id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erro ao buscar usuário' });
+    }
+};
+
+// 5. ATUALIZAR DADOS DO USUÁRIO
+exports.atualizarUsuario = async (req, res) => {
+    const { id } = req.params;
+    const { nome, idade, cep, email, senhaAtual, novaSenha } = req.body;
+
+    if (!nome || !idade || !cep || !email) {
+        return res.status(400).json({ error: 'Campos obrigatórios ausentes.' });
+    }
+
+    try {
+        const userResult = await db.query('SELECT * FROM usuarios WHERE id = $1', [id]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+        const user = userResult.rows[0];
+
+        // Verifica se o novo e-mail já pertence a outro usuário
+        if (email !== user.email) {
+            const emailExists = await db.query(
+                'SELECT id FROM usuarios WHERE email = $1 AND id != $2',
+                [email, id]
+            );
+            if (emailExists.rows.length > 0) {
+                return res.status(400).json({ error: 'E-mail já cadastrado por outro usuário.' });
+            }
+        }
+
+        if (novaSenha) {
+            // Troca de senha: valida a senha atual
+            if (!senhaAtual) {
+                return res.status(400).json({ error: 'Senha atual obrigatória para alterar a senha.' });
+            }
+            const senhaValida = await bcrypt.compare(senhaAtual, user.senha);
+            if (!senhaValida) {
+                return res.status(401).json({ error: 'Senha atual incorreta.' });
+            }
+            const salt = await bcrypt.genSalt(10);
+            const novaSenhaHash = await bcrypt.hash(novaSenha, salt);
+            await db.query(
+                'UPDATE usuarios SET nome = $1, idade = $2, cep = $3, email = $4, senha = $5 WHERE id = $6',
+                [nome, idade, cep, email, novaSenhaHash, id]
+            );
+        } else {
+            await db.query(
+                'UPDATE usuarios SET nome = $1, idade = $2, cep = $3, email = $4 WHERE id = $5',
+                [nome, idade, cep, email, id]
+            );
+        }
+
+        res.json({ message: 'Dados atualizados com sucesso!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erro ao atualizar usuário' });
+    }
+};
