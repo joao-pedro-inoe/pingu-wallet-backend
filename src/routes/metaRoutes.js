@@ -69,4 +69,31 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Realizar depósito em uma meta (Soma no banco para evitar conflito concorrente)
+router.patch("/:id/depositar", async (req, res) => {
+  const { id } = req.params;
+  const { valor } = req.body;
+
+  if (valor === undefined || valor <= 0) {
+    return res.status(400).json({ error: "Valor de depósito inválido." });
+  }
+
+  try {
+    // Aqui usamos "atual = atual + $1" para garantir a matemática perfeita no DB
+    const result = await db.query(
+      "UPDATE metas SET atual = atual + $1 WHERE id = $2 RETURNING *",
+      [valor, id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Meta não encontrada." });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Erro no depósito:", err);
+    res.status(500).json({ error: "Erro ao realizar depósito na meta." });
+  }
+});
+
 module.exports = router;
