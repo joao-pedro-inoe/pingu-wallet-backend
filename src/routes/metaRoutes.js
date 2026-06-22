@@ -51,6 +51,30 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Depositar valor em uma meta (soma ao campo atual)
+router.patch("/:id/depositar", async (req, res) => {
+  const { id } = req.params;
+  const { valor } = req.body;
+
+  if (!valor || isNaN(valor) || Number(valor) <= 0) {
+    return res.status(400).json({ error: "Informe um valor válido maior que zero." });
+  }
+
+  try {
+    const result = await db.query(
+      "UPDATE metas SET atual = atual + $1 WHERE id = $2 RETURNING *",
+      [valor, id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Meta não encontrada." });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao depositar na meta." });
+  }
+});
+
 // Deletar uma meta
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;

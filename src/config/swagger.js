@@ -475,6 +475,45 @@ const swaggerOptions = {
           },
         },
       },
+      "/metas/{id}/depositar": {
+        patch: {
+          summary: "Adiciona um valor ao progresso atual da meta",
+          tags: ["Metas"],
+          parameters: [
+            {
+              name: "id",
+              in: "path",
+              required: true,
+              schema: { type: "integer" },
+              description: "ID da meta",
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  required: ["valor"],
+                  properties: {
+                    valor: {
+                      type: "number",
+                      example: 250.5,
+                      description: "Valor a ser adicionado ao progresso da meta",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            200: { description: "Valor depositado na meta com sucesso." },
+            400: { description: "Valor inválido ou maior que zero não informado." },
+            404: { description: "Meta não encontrada." },
+            500: { description: "Erro ao depositar na meta." },
+          },
+        },
+      },
     },
   },
   apis: [],
