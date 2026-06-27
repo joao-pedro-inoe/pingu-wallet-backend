@@ -31,13 +31,10 @@ Servidor central responsável por processar as transações financeiras, gerenci
    npm run dev
 
 ## 👥 Equipe
-João Pedro Araújo
-
-Daniel Suzuki Naves
-
-Luís Fernando Moreira Beani
-
-Guilherme Teruichi Nishida
+* João Pedro Araújo
+* Daniel Suzuki Naves
+* Luís Fernando Moreira Beani
+* Guilherme Teruichi Nishida
 
 ## 📄 Licença
-Este projeto está sob a licença Apache 2.0.
+Este projeto está sob a licença **Apache 2.0.**
