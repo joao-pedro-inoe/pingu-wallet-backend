@@ -3,19 +3,19 @@
 API robusta desenvolvida em **Node.js** para gerenciar as regras de negócio e persistência de dados do Pingu Wallet.
 
 ## 📝 Descrição
-Servidor central responsável por processar as transações financeiras, gerenciar usuários e calcular o progresso das metas financeiras, utilizando **PostgreSQL** como banco de dados relacional[cite: 1].
+Servidor central responsável por processar as transações financeiras, gerenciar usuários e calcular o progresso das metas financeiras, utilizando **PostgreSQL** como banco de dados relacional.
 
 ## 🚀 Funcionalidades
-* **Auth**: Sistema de autenticação via JWT (JSON Web Tokens)[cite: 1].
-* **Gestão Financeira**: Endpoints completos para manipulação de transações (`/transacoes`) e metas (`/metas`)[cite: 1].
-* **Relatórios**: Integração real com lógica de agregação para relatórios mensais e por categoria[cite: 1].
-* **Histórico de Metas**: Gestão segura de depósitos em metas com auditoria de dados (tabela `depositos_meta`)[cite: 3].
+* **Auth**: Sistema de autenticação via JWT (JSON Web Tokens).
+* **Gestão Financeira**: Endpoints completos para manipulação de transações (`/transacoes`) e metas (`/metas`).
+* **Relatórios**: Integração real com lógica de agregação para relatórios mensais e por categoria.
+* **Histórico de Metas**: Gestão segura de depósitos em metas com auditoria de dados (tabela `depositos_meta`).
 
 ## 🛠️ Tecnologias
 * **Runtime**: Node.js
 * **Framework**: Express
 * **Banco de Dados**: PostgreSQL
-* **Infraestrutura**: Docker & Docker Compose para orquestração[cite: 1, 2]
+* **Infraestrutura**: Docker & Docker Compose para orquestração
 
 ## ⚙️ Como Executar
 1. Certifique-se de ter **Docker** e **Node.js** instalados.
