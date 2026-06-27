@@ -52,8 +52,8 @@ router.put("/:id", async (req, res) => {
   const { titulo, alvo, icone } = req.body;
   try {
     const result = await db.query(
-      "UPDATE metas SET titulo = $1, alvo = $2, atual = $3, icone = $4 WHERE id = $5 RETURNING *",
-      [titulo, alvo, atual, icone || "savings", id],
+      "UPDATE metas SET titulo = $1, alvo = $2, icone = $3 WHERE id = $4 RETURNING *",
+      [titulo, alvo, icone || "savings", id],
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Meta não encontrada." });
