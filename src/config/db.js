@@ -49,6 +49,14 @@ pool.query("SELECT NOW()", async (err, res) => {
                     icone VARCHAR(50) NOT NULL DEFAULT 'savings',
                     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+
+                CREATE TABLE IF NOT EXISTS depositos_meta (
+                    id SERIAL PRIMARY KEY,
+                    meta_id INTEGER REFERENCES metas(id) ON DELETE CASCADE,
+                    valor DECIMAL(10, 2) NOT NULL,
+                    descricao VARCHAR(255) DEFAULT 'Aporte',
+                    data_deposito TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
             `;
       await pool.query(initQuery);
       console.log(
