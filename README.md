@@ -20,13 +20,19 @@ Servidor central responsável por processar as transações financeiras, gerenci
 ## ⚙️ Como Executar
 1. Certifique-se de ter **Docker** e **Node.js** instalados.
 2. Clone o repositório.
-3. Suba a infraestrutura do banco de dados:
+3. Acesse a pasta raiz:
+   ```bash
+   cd pingu-wallet-backend
+4. Copie o arquivo de exemplo para criar o seu **.env** (já configurado):
+   ```bash
+   cp .env.example .env
+5. Suba a infraestrutura do banco de dados:
    ```bash
    docker-compose up -d
-4. Instale as dependências: 
+6. Instale as dependências: 
    ```bash
    npm install
-5. Inicie o servidor:
+7. Inicie o servidor:
    ```bash
    npm run dev
 
