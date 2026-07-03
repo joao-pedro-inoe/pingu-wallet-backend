@@ -3,7 +3,7 @@
 API de alta performance desenvolvida em **Node.js** para suportar a infraestrutura de dados e a lógica de negócio do Pingu Wallet, um sistema de gestão financeira pessoal focado em segurança, usabilidade e precisão.
 
 ## 📝 Visão Geral
-Servidor robusto desenvolvido com arquitetura REST, responsável pela persistência de dados financeiros, processamento de transações, gestão de metas e autenticação segura de usuários. O projeto utiliza **PostgreSQL** como base relacional, gerenciada via **Prisma ORM**.
+Servidor robusto desenvolvido com arquitetura REST, responsável pela persistência de dados financeiros, processamento de transações, gestão de metas e autenticação segura de usuários. O projeto utiliza **PostgreSQL** como base relacional.
 
 ## 🚀 Principais Funcionalidades
 * **Autenticação Segura**: Implementação de sistema de login e registro baseada em **JWT (JSON Web Token)**.
@@ -14,7 +14,6 @@ Servidor robusto desenvolvido com arquitetura REST, responsável pela persistên
 ## 🛠️ Stack Tecnológica
 * **Linguagem**: JavaScript (Node.js)
 * **Framework**: Express.js
-* **ORM**: Prisma
 * **Banco de Dados**: PostgreSQL
 * **Orquestração**: Docker & Docker Compose
 
@@ -40,7 +39,6 @@ Servidor robusto desenvolvido com arquitetura REST, responsável pela persistên
 4. Instale as dependências e inicie o servidor:
    ```bash
    npm install
-   npx prisma migrate dev
    npm run dev
 
 ## 👥 Equipe de Desenvolvimento
