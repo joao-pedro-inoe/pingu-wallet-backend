@@ -1,46 +1,53 @@
-# Pingu Wallet - API
+# Pingu Wallet - Backend
 
-API robusta desenvolvida em **Node.js** para gerenciar as regras de negócio e persistência de dados do Pingu Wallet.
+API de alta performance desenvolvida em **Node.js** para suportar a infraestrutura de dados e a lógica de negócio do Pingu Wallet, um sistema de gestão financeira pessoal focado em segurança, usabilidade e precisão.
 
-## 📝 Descrição
-Servidor central responsável por processar as transações financeiras, gerenciar usuários e calcular o progresso das metas financeiras, utilizando **PostgreSQL** como banco de dados relacional.
+## 📝 Visão Geral
+Servidor robusto desenvolvido com arquitetura REST, responsável pela persistência de dados financeiros, processamento de transações, gestão de metas e autenticação segura de usuários. O projeto utiliza **PostgreSQL** como base relacional, gerenciada via **Prisma ORM**.
 
-## 🚀 Funcionalidades
-* **Auth**: Sistema de autenticação via JWT (JSON Web Tokens).
-* **Gestão Financeira**: Endpoints completos para manipulação de transações (`/transacoes`) e metas (`/metas`).
-* **Relatórios**: Integração real com lógica de agregação para relatórios mensais e por categoria.
-* **Histórico de Metas**: Gestão segura de depósitos em metas com auditoria de dados (tabela `depositos_meta`).
+## 🚀 Principais Funcionalidades
+* **Autenticação Segura**: Implementação de sistema de login e registro baseada em **JWT (JSON Web Token)**.
+* **Gestão Financeira**: Operações completas de CRUD para transações de receitas e despesas.
+* **Inteligência de Metas**: Lógica de negócio focada no acompanhamento de objetivos ("cofrinhos"), permitindo depósitos incrementais e auditoria de histórico.
+* **Relatórios**: Endpoints otimizados para agregação de dados financeiros mensais, organizados por categorias.
 
-## 🛠️ Tecnologias
-* **Runtime**: Node.js
-* **Framework**: Express
+## 🛠️ Stack Tecnológica
+* **Linguagem**: JavaScript (Node.js)
+* **Framework**: Express.js
+* **ORM**: Prisma
 * **Banco de Dados**: PostgreSQL
-* **Infraestrutura**: Docker & Docker Compose para orquestração
+* **Orquestração**: Docker & Docker Compose
 
-## ⚙️ Como Executar
-1. Certifique-se de ter **Docker** e **Node.js** instalados.
-2. Clone o repositório.
-3. Acesse a pasta raiz:
+## ⚙️ Como Executar o Projeto
+
+### Pré-requisitos
+* [Node.js](https://nodejs.org/) (LTS)
+* [Docker](https://www.docker.com/) e Docker Compose
+
+### Instalação e Execução
+1. Clone este repositório:
    ```bash
+   git clone [URL_DO_REPOSITORIO]
    cd pingu-wallet-backend
-4. Copie o arquivo de exemplo para criar o seu **.env** (já configurado):
+2. Configure as variáveis de ambiente:
+* copie o arquivo de exemplo para o seu arquivo de ambiente local:
    ```bash
    cp .env.example .env
-5. Suba a infraestrutura do banco de dados:
+* **Nota:** edite o **.env** gerado e insira suas credenciais locais de banco de dados e segredos de JWT.
+3. Suba a infraestrutura do banco de dados via Docker:
    ```bash
    docker-compose up -d
-6. Instale as dependências: 
+4. Instale as dependências e inicie o servidor:
    ```bash
    npm install
-7. Inicie o servidor:
-   ```bash
+   npx prisma migrate dev
    npm run dev
 
-## 👥 Equipe
-* João Pedro Araújo
+## 👥 Equipe de Desenvolvimento
 * Daniel Suzuki Naves
-* Luís Fernando Moreira Beani
 * Guilherme Teruichi Nishida
+* João Pedro Araújo
+* Luís Fernando Moreira Beani
 
 ## 📄 Licença
-Este projeto está sob a licença **Apache 2.0.**
+Este projeto está licenciado sob a licença **Apache 2.0.**
